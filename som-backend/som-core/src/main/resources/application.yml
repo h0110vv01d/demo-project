@@ -1,0 +1,37 @@
+server:
+  port: ${PORT:8081}
+spring:
+  application:
+    name: som-core
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:localhost}
+    user: ${POSTGRES_USER:postgres}
+    name: ${POSTGRES_DB:som_core_db}
+    pass: ${POSTGRES_PASSWORD:123qwe}
+    port: ${POSTGRES_PORT:5432}
+  #  jpa:
+  #    defer-datasource-initialization: true
+  rabbitmq:
+    host: localhost
+    password: 123qwe
+    username: admin
+  security:
+    admin_username: ${ADMIN_USERNAME:som_admin}
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${KEYCLOAK_REALM_CERT_URL:http://localhost:8080/auth/realms/som_realm/protocol/openid-connect/certs}
+keycloak-admin:
+  url: ${KEYCLOAK_URL:http://localhost:8080/auth}
+  realm: ${KEYCLOAK_REALM:som_realm}
+  clientId: ${CLIENT_ID:som_core_spring_boot_admin}
+  clientSecret: ${CLIENT_SECRET:92f99493-c3c1-4b7c-9b14-210c5191fdd7}
+  users_clientId: ${USERS_CLIENT_ID:som_core_users}
+  admin_password: ${ADMIN_PASSWROD:123qwe}
+keycloak:
+  realm: ${KEYCLOAK_REALM:som_realm}
+  auth-server-url: ${KEYCLOAK_URL:http://localhost:8080/auth}
+  resource: demoapp
+#  ssl-required:external
+#  keycloak.credentials.secret:11111111-1111-1111-1111-111111111111
+#  keycloak.use-resource-role-mappings = true

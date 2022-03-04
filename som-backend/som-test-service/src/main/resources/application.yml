@@ -1,0 +1,7 @@
+spring:
+  rabbitmq:
+    host: localhost
+    password: 123qwe
+    username: admin
+server:
+  port: 8084

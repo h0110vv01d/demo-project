@@ -1,0 +1,56 @@
+/*
+Background 	#252024 	37 32 36
+Current line 	#323232 	50 50 50
+Selection 	#214283 	33 66 131
+Foreground 	#a9b7c6 	169 183 198
+Comment 	#808080 	128 128 128
+*/
+.root {
+backgroundColor1: #252024;
+backgroundColor2: #323232;
+contentColor1: #eeeeee;
+contentColor2: #808080;
+linearGradient: linear-gradient(to right, backgroundColor1, #dc322f);
+-fx-background-color: backgroundColor1;
+-fx-color: contentColor1
+}
+.label { -fx-text-fill: -fx-color}
+#mainHeader {
+-fx-border-color: -fx-color;
+-fx-border-insets: 0;
+-fx-border-width: 0 0 2 0;
+-fx-border-style: solid;
+}
+#mainDrawerLeftPane {
+-fx-border-color: -fx-color;
+-fx-border-insets: 1 0 0 0;
+-fx-border-width: 0 2 0 0;
+-fx-border-style: solid;
+}
+/*#mainDrawerRightPane {
+-fx-border-color: -fx-color;
+-fx-border-insets: 0 0 0 0;
+-fx-border-width: 0 2 0 0;
+-fx-border-style: none;
+}*/
+#workingSpace {
+-fx-background-color: backgroundColor2;
+-fx-border-color: -fx-color;
+-fx-border-width: 2 0 0 2;
+-fx-border-style: solid;
+}
+#colors{
+-fx-border-color: contentColor2;
+-fx-border-insets: -2 -2 -2 -2;
+-fx-border-width: 3 3 3 3;
+-fx-border-style: solid;
+}
+.ikonli-font-icon {
+-fx-icon-size: 30;
+-fx-icon-color: -fx-color;
+}
+
+#eye{
+-fx-icon-size: 500;
+-fx-icon-color: backgroundColor1
+}

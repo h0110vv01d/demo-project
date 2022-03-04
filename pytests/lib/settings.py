@@ -1,0 +1,2 @@
+USERS_CLIENT_ID = "som_core_users"
+USERS_CLIENT_SECRET = "17d76b65-b8dc-44e6-b23a-73813a2feb63"

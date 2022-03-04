@@ -1,0 +1,68 @@
+version: '3.3'
+services:
+#  app:
+#    image: 'som-core'
+#    build:
+#      context: app
+#      dockerfile: Dockerfile
+#    command: java -jar ./som.jar
+#    environment:
+#      - PORT=8081
+#      - SPRING_DATASOURCE_URL=postgres
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_DB=som_core_db
+#      - POSTGRES_PASSWORD=123qwe
+#      - POSTGRES_PORT=5432
+#      - ADMIN_USERNAME=som_admin
+#    ports:
+#      - 8081:8081
+#    depends_on:
+#      - postgres
+
+  postgres:
+    image: 'som-core-db'
+    build:
+      context: postgres
+      dockerfile: postgres/Dockerfile
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=som_core_db
+      - POSTGRES_PASSWORD=123qwe
+    volumes:
+      - "db-data:/var/lib/postgresql/som_db_data"
+
+  keycloak:
+    image: 'som-keycloak'
+    build:
+      context: keycloak
+      dockerfile: keycloak/Dockerfile
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: som_core_db
+      DB_USER: postgres
+      DB_SCHEMA: keycloak
+      DB_PASSWORD: 123qwe
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: 123qwe
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+
+  rabbitmq:
+    image: 'som-rabbitmq'
+    build:
+      context: rabbitmq
+      dockerfile: Dockerfile
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: 123qwe
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+volumes:
+  db-data:
