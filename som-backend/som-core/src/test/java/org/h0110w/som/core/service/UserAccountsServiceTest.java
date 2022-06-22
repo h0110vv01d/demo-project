@@ -77,6 +77,7 @@ class UserAccountsServiceTest extends AbstractTestWithDbAndKeycloak {
 
     @BeforeEach
     public void setup() {
+        cleaner.deleteTasks();
         cleaner.deleteUsersFromKeycloakAndDB();
 //        when(userContext.getCurrentUser()).thenReturn(testAdmin);
     }

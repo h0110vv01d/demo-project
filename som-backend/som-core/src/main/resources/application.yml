@@ -3,8 +3,10 @@ server:
 spring:
   application:
     name: som-core
+  profiles:
+    active: default_db, default_flyway
   datasource:
-    url: ${SPRING_DATASOURCE_URL:localhost}
+    url: ${SPRING_DATASOURCE_URL:postgres}
     user: ${POSTGRES_USER:postgres}
     name: ${POSTGRES_DB:som_core_db}
     pass: ${POSTGRES_PASSWORD:123qwe}
@@ -12,25 +14,25 @@ spring:
   #  jpa:
   #    defer-datasource-initialization: true
   rabbitmq:
-    host: localhost
-    password: 123qwe
+    host: som-rabbitmq
     username: admin
+    password: 123qwe
   security:
     admin_username: ${ADMIN_USERNAME:som_admin}
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: ${KEYCLOAK_REALM_CERT_URL:http://localhost:8080/auth/realms/som_realm/protocol/openid-connect/certs}
+          jwk-set-uri: ${KEYCLOAK_REALM_CERT_URL:http://keycloak:8080/auth/realms/som_realm/protocol/openid-connect/certs}
 keycloak-admin:
-  url: ${KEYCLOAK_URL:http://localhost:8080/auth}
+  url: ${KEYCLOAK_URL:http://keycloak:8080/auth}
   realm: ${KEYCLOAK_REALM:som_realm}
   clientId: ${CLIENT_ID:som_core_spring_boot_admin}
-  clientSecret: ${CLIENT_SECRET:92f99493-c3c1-4b7c-9b14-210c5191fdd7}
+  clientSecret: ${CLIENT_SECRET:56204554-c8a2-4f3c-aa0a-a53ea4da7fa7}
   users_clientId: ${USERS_CLIENT_ID:som_core_users}
   admin_password: ${ADMIN_PASSWROD:123qwe}
 keycloak:
   realm: ${KEYCLOAK_REALM:som_realm}
-  auth-server-url: ${KEYCLOAK_URL:http://localhost:8080/auth}
+  auth-server-url: ${KEYCLOAK_URL:http://keycloak:8080/auth}
   resource: demoapp
 #  ssl-required:external
 #  keycloak.credentials.secret:11111111-1111-1111-1111-111111111111

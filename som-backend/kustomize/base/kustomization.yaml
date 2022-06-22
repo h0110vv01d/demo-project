@@ -1,0 +1,25 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - som-core.yaml
+  - som-test-srvc.yaml
+#  - postgres/postgres-configmap.yaml
+#  - postgres/postgres-deployment.yaml
+#  - postgres/postgres-service.yaml
+#  - postgres/postgres-storage.yaml
+#  - keycloak/keycloak-configmap.yaml
+#  - keycloak/keycloak-deployment.yaml
+#  - keycloak/keycloak-service.yaml
+
+# helm install som-rabbitmq --set auth.username=admin,auth.password=123qwe,service.type=LoadBalancer,auth.erlangCookie=somsecretcookie bitnami/rabbitmq
+# https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq#parameters
+# authFail - kubectl get pvc / kubectl delete pvc data-som-rabbitmq-0
+
+configMapGenerator:
+  - name: som-core-config
+    files:
+      - som-core-config/application.yaml
+#  - name: keycloak-realm-config
+#    files:
+#      - keycloak/realm-export.json

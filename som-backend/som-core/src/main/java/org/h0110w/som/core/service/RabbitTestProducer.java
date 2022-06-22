@@ -20,7 +20,7 @@ public class RabbitTestProducer {
         log.info("sender initialized");
     }
 
-    @Scheduled(fixedDelay = 1000, initialDelay = 500)
+    @Scheduled(fixedDelay = 10000, initialDelay = 500)
     public void send(){
         rabbitTemplate.convertAndSend(requestHelloQueue.getName(), new Message("hello"));
         log.info(this.getClass().getName()+" sent hello message");

@@ -47,6 +47,7 @@ services:
       DB_PASSWORD: 123qwe
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: 123qwe
+
     ports:
       - 8080:8080
     depends_on:

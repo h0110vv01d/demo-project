@@ -10,18 +10,30 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>som-test-service</artifactId>
+
     <dependencies>
         <dependency>
             <groupId>org.h0110w</groupId>
             <artifactId>som-commons</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
-
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
-
+    <build>
+        <finalName>my-app2</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>org.h0110w.som.test_service.TestServiceApplication</mainClass>
+                    <fork>true</fork>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

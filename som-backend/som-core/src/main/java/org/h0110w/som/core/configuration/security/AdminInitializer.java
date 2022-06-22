@@ -74,13 +74,12 @@ public class AdminInitializer implements InitializingBean {
         userAccount.setUserAccountStatus(UserAccountStatus.ACTIVE);
         userAccount.setBuiltIn(true);
 
-        userAccountsRepository.save(userAccount);
-
-        User user = new User();
+        User user = new User(userAccount);
         user.setDisplayName(userAccount.getLogin());
-        user.setAccount(userAccount);
 
-        usersRepository.save(user);
+        userAccount.setUser(user);
+
+        userAccountsRepository.saveAndFlush(userAccount);
     }
 
     private boolean doesAdminAccountExist() {

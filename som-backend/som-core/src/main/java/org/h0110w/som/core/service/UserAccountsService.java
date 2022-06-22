@@ -6,6 +6,7 @@ import org.h0110w.som.core.configuration.messages.CustomMessageSource;
 import org.h0110w.som.core.controller.request.CreateUserAccountRequestDto;
 import org.h0110w.som.core.controller.request.UpdateUserRequestDto;
 import org.h0110w.som.core.exception.ServiceException;
+import org.h0110w.som.core.model.user.User;
 import org.h0110w.som.core.repository.UserAccountsRepository;
 import org.h0110w.som.core.service.mapper.Mapper;
 import org.h0110w.som.core.service.util.pagination.CustomPageRequest;
@@ -72,9 +73,9 @@ public class UserAccountsService {
         userAccount.setUserAccountStatus(UserAccountStatus.ACTIVE);
         userAccount.setBuiltIn(false);
 
-        userAccount = userAccountsRepository.save(userAccount);
+        userAccount.setUser(new User(userAccount));
 
-        usersService.create(userAccount);
+        userAccount = userAccountsRepository.save(userAccount);
 
         return Mapper.USER_ACCOUNT.toDto(userAccount);
     }

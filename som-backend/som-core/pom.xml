@@ -16,7 +16,6 @@
     <properties>
         <java.version>17</java.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
-        <org.projectlombok.version>1.18.22</org.projectlombok.version>
         <infinispan.version>10.1.8.Final</infinispan.version>
     </properties>
 
@@ -167,6 +166,11 @@
 
         <!--		other-->
         <dependency>
+            <groupId>org.h0110w</groupId>
+            <artifactId>som-commons</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${org.mapstruct.version}</version>
@@ -176,20 +180,19 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.12.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.h0110w</groupId>
-            <artifactId>som-commons</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
     <build>
+        <finalName>my-app1</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-<!--                <version>${project.parent.version}</version>-->
+                <configuration>
+                    <mainClass>org.h0110w.som.core.SomApplication</mainClass>
+                    <fork>true</fork>
+                    <skip>false</skip>
+                </configuration>
             </plugin>
 
             <plugin>

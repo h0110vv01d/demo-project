@@ -30,6 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests(expressionInterceptUrlRegistry ->
                         expressionInterceptUrlRegistry
+                                .antMatchers("/actuator/health/liveness").permitAll()
+                                .antMatchers("/actuator/health/readiness").permitAll()
                                 .antMatchers("/public/message").permitAll()
                                 .antMatchers("/auth/token").permitAll()
                                 .antMatchers("/user/message").hasRole(UserAccountType.REGULAR.name())

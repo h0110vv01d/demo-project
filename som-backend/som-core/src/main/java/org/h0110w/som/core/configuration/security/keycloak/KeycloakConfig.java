@@ -1,6 +1,7 @@
 package org.h0110w.som.core.configuration.security.keycloak;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
@@ -13,6 +14,7 @@ import static org.keycloak.OAuth2Constants.CLIENT_CREDENTIALS;
 
 @Configuration
 @Getter
+@Slf4j
 public class KeycloakConfig {
     private static Keycloak client = null;
     @Value("${keycloak-admin.url}")
@@ -52,6 +54,7 @@ public class KeycloakConfig {
                             .build())
                     .build();
         }
+        log.info("KeycloakAdminClient was initialized");
         return client;
     }
 

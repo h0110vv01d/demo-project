@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: som-core-deployment
+  labels:
+    app: som-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: som-core
+  template:
+    metadata:
+      labels:
+        app: som-core
+    spec:
+      containers:
+        - name: som-core
+          image: som-core
+          args:
+            - /bin/sh
+            - -c
+            - touch /tmp/healthy; sleep 60; rm -f /tmp/healthy; sleep 300
+          imagePullPolicy: Never
+          resources: { }
+          ports:
+            - containerPort: 8081
+          startupProbe:
+            httpGet:
+              port: 8081
+              path: /actuator/health/liveness
+            failureThreshold: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              port: 8081
+              path: /actuator/health/readiness
+          livenessProbe:
+            httpGet:
+              port: 8081
+              path: /actuator/health/liveness
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "sh", "-c", "sleep 10" ]
+          volumeMounts:
+            - name: config-volume
+              mountPath: /workspace/config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: som-core-config
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: som-core-service
+spec:
+  type: NodePort
+  selector:
+    app: som-core
+  ports:
+    - port: 8081
+      protocol: TCP
+      targetPort: 8081
+#      nodePort: 30101

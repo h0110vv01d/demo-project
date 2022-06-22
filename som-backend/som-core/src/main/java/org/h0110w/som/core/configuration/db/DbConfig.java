@@ -40,7 +40,7 @@ public class DbConfig {
         Properties props = new Properties();
         props.setProperty("dataSourceClassName", "org.postgresql.ds.PGSimpleDataSource");
         props.setProperty("dataSource.serverName", DB_URL);
-        props.setProperty("dataSource.portNumber", DB_PORT);
+//        props.setProperty("dataSource.portNumber", DB_PORT);
         props.setProperty("dataSource.databaseName", DB_NAME);
 
 

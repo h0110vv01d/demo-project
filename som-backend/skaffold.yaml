@@ -1,0 +1,22 @@
+apiVersion: skaffold/v2beta5
+kind: Config
+metadata:
+  name: som-application--
+build:
+  artifacts:
+    - image: som-core
+      custom:
+        buildCommand: ./som-core/mvnw spring-boot:build-image -D spring-boot.build-image.imageName=$IMAGE --projects som-core && minikube image push $IMAGE
+    - image: som-test-srvc
+      custom:
+        buildCommand: ./som-test-service/mvnw spring-boot:build-image -D spring-boot.build-image.imageName=$IMAGE --projects som-test-service && minikube image push $IMAGE
+
+
+deploy:
+  kustomize:
+    paths: [ "kustomize/base" ]
+profiles:
+  - name: test
+    deploy:
+      kustomize:
+        paths: [ "kustomize/test" ]

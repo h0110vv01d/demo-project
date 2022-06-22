@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: som-test-srvc-deployment
+  labels:
+    app: som-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: som-test-srvc
+  template:
+    metadata:
+      labels:
+        app: som-test-srvc
+    spec:
+      containers:
+        - name: som-test-srvc
+          image: som-test-srvc
+          imagePullPolicy: Never
+          resources: { }
+          ports:
+            - containerPort: 8084
+          startupProbe:
+            httpGet:
+              port: 8084
+              path: /actuator/health/liveness
+            failureThreshold: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              port: 8084
+              path: /actuator/health/readiness
+          livenessProbe:
+            httpGet:
+              port: 8084
+              path: /actuator/health/liveness
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "sh", "-c", "sleep 10" ]
+#          volumeMounts:
+#            - name: config-volume
+#              mountPath: /workspace/config
+#      volumes:
+#        - name: config-volume
+#          configMap:
+#            name: som-core-config
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: som-test-srvc-service
+spec:
+  type: NodePort
+  selector:
+    app: som-test-srvc
+  ports:
+    - port: 8084
+      protocol: TCP
+      targetPort: 8084
+#      nodePort: 30104

@@ -1,6 +1,6 @@
 spring:
   rabbitmq:
-    host: localhost
+    host: som-rabbitmq
     password: 123qwe
     username: admin
 server:
